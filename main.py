@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return f"hello world: {os.getenv('DB_HOST')}"
+    return f"hello world: {os.getenv('DB_HOST')}, {os.getenv('a')}"
 
 
 if __name__ == '__main__':
