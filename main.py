@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 
 app = Flask(__name__)
@@ -5,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return "hello world"
+    return f"hello world: {os.getenv('DB_HOST')}"
 
 
 if __name__ == '__main__':
