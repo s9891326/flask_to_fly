@@ -3,29 +3,11 @@ name: CICD
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - master
 
 jobs:
-  CI:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-
-      - name: Run unit tests
-        run: |
-          echo "Finish CI test"
-
   CD-dev:
     name: Deploy to Fly.io develop
-    needs: CI
     environment: beta
     runs-on: ubuntu-latest
     steps:
