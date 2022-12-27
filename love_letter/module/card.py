@@ -8,6 +8,7 @@ REJECT_BY_RULE = ValueError("You can not discard by the rule")
 REJECT_BY_RULE_GUESS_GUARD = ValueError("You can not guess guard")
 
 
+
 class Card(metaclass=abc.ABCMeta):
     """
     A card could be discarded by the turn-player or a chosen player who was assigned by the turn player.
