@@ -56,6 +56,12 @@ jobs:
           files: |
             *.py
 
+      - name: List all added files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+             echo "$file was modified."
+          done
+
       - name: isort
         run: |
           [[ -n "${{ steps.changed-files.outputs.all_changed_files }}" ]] &&
