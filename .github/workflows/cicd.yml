@@ -55,6 +55,7 @@ jobs:
         with:
           files: |
             *.py
+            **/*.py
 
       - name: List all added files
         run: |
