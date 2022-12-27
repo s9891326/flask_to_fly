@@ -67,5 +67,5 @@ jobs:
         run: |
           [[ -n "${{ steps.changed-files.outputs.all_changed_files }}" ]] &&
           (echo "${{ steps.changed-files.outputs.all_changed_files }}" | xargs isort --check --diff &&
-          ore.setFailed('envA and envB are not equivalent!')) ||
+          ore.setFailed(envA and envB are not equivalent!)) ||
           echo "0 Python files changed."
