@@ -3,8 +3,8 @@ import copy
 import random
 from typing import List, Optional
 
-REJECT_BY_RULE = ValueError("You can not discard by the rule")
-REJECT_BY_RULE_GUESS_GUARD = ValueError("You can not guess guard")
+REJECT_BY_RULE = ValueError('You can not discard by the rule')
+REJECT_BY_RULE_GUESS_GUARD = ValueError('You can not guess guard')
 
 
 class Card(metaclass=abc.ABCMeta):

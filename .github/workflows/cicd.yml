@@ -30,10 +30,6 @@ on:
       - master
       - feature/test_ci_isort
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 env:
   PYTHON_VERSION: '3.10'
 
