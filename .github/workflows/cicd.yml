@@ -65,9 +65,7 @@ jobs:
 
       - name: isort
         run: |
-          [[ -n "${{ steps.changed-files.outputs.all_changed_files }}" ]] ; echo $?
-          echo "${{ steps.changed-files.outputs.all_changed_files }}" | xargs isort --check --diff ; echo $?
-
           [[ -n "${{ steps.changed-files.outputs.all_changed_files }}" ]] &&
-          (echo "${{ steps.changed-files.outputs.all_changed_files }}" | xargs isort --check --diff ||
-          echo "0 Python files changed."
+          echo "${{ steps.changed-files.outputs.all_changed_files }}" | xargs isort --check --diff &&
+          echo "0 Python files changed." ||
+          echo "::error file=card.py,line=1::Missing semicolon"
