@@ -1,6 +1,7 @@
 import abc
 import copy
 import random
+
 from typing import List, Optional
 
 REJECT_BY_RULE = ValueError("You can not discard by the rule")
