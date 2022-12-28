@@ -65,7 +65,7 @@ jobs:
 
       - name: isort
         run: |
-          if [[ -n ${{ steps.changed-files.outputs.all_changed_files }} ]]; then
+          if [[ -n "${{ steps.changed-files.outputs.all_changed_files }}" ]]; then
             echo "have change"
           else
             echo "no change"
