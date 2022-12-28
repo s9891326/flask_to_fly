@@ -66,12 +66,8 @@ jobs:
       - name: isort
         run: |
           if [[ -n "${{ steps.changed-files.outputs.all_changed_files }}" ]]; then
-            echo "have change"
+            echo "${{ steps.changed-files.outputs.all_changed_files }}" | xargs isort --check --diff ||
+            exit 1
           else
-            echo "no change"
+            echo "0 Python files changed."
           fi
-
-          [[ -n "${{ steps.changed-files.outputs.all_changed_files }}" ]] &&
-          echo "${{ steps.changed-files.outputs.all_changed_files }}" | xargs isort --check --diff &&
-          echo "0 Python files changed." ||
-          exit 1
