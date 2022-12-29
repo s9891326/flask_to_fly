@@ -69,6 +69,7 @@ class Card(metaclass=abc.ABCMeta):
             "can_guess_cards": self.can_guess_cards(),
         }
 
+
     def __eq__(self, other):
         return self.name == other.name
 

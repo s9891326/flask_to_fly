@@ -30,6 +30,10 @@ on:
       - master
       - feature/test_ci_isort
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   PYTHON_VERSION: '3.10'
 
@@ -95,6 +99,39 @@ jobs:
           if [[ -n "${{ steps.changed-files.outputs.all_changed_files }}" ]]; then
             echo "${{ steps.changed-files.outputs.all_changed_files }}" | xargs black --check --diff &&
             echo "Black was succeeded." ||
+            exit 1
+          else
+            echo "0 Python files changed."
+          fi
+
+  pylint:
+    name: pylint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install package
+        run: python -m pip install pylint==2.15.5
+
+      - name: Set changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            *.py
+            **/*.py
+
+      - name: pylint
+        run: |
+          if [[ -n "${{ steps.changed-files.outputs.all_changed_files }}" ]]; then
+            echo "${{ steps.changed-files.outputs.all_changed_files }}" | xargs pylint &&
+            echo "Pylint was succeeded." ||
             exit 1
           else
             echo "0 Python files changed."
