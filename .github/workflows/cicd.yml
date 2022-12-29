@@ -130,7 +130,7 @@ jobs:
       - name: pylint
         run: |
           if [[ -n "${{ steps.changed-files.outputs.all_changed_files }}" ]]; then
-            echo "${{ steps.changed-files.outputs.all_changed_files }}" | xargs pylint &&
+            echo "${{ steps.changed-files.outputs.all_changed_files }}" | xargs pylint --rcfile .pylintrc &&
             echo "Pylint was succeeded." ||
             exit 1
           else

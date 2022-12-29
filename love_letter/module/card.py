@@ -3,8 +3,8 @@ import copy
 import random
 from typing import List, Optional
 
-REJECT_BY_RULE = ValueError('You can not discard by the rule')
-REJECT_BY_RULE_GUESS_GUARD = ValueError('You can not guess guard')
+REJECT_BY_RULE = ValueError("You can not discard by the rule")
+REJECT_BY_RULE_GUESS_GUARD = ValueError("You can not guess guard")
 
 
 class Card(metaclass=abc.ABCMeta):
@@ -31,6 +31,10 @@ class Card(metaclass=abc.ABCMeta):
     * quantity: how many copies of this card
 
     """
+
+    name: str = ""
+    value: int = 0
+    quantity: int = 0
 
     @abc.abstractmethod
     def trigger_effect(
@@ -68,7 +72,6 @@ class Card(metaclass=abc.ABCMeta):
             "choose_players": self.choose_players,
             "can_guess_cards": self.can_guess_cards(),
         }
-
 
     def __eq__(self, other):
         return self.name == other.name
@@ -151,7 +154,7 @@ class BaronCard(Card):
         chosen_player: "Player" = None,
         with_card: "Card" = None,
     ):
-        raise NotImplemented
+        pass
 
     def choose_players(
         self, current_player_name: str, alive_player_names: List[str]
@@ -181,8 +184,8 @@ class PrinceCard(Card):
     quantity = 2
 
     """
-    When you discard Prince Arnaud, choose one player still in the round (including yourself). 
-    That player discards his or her hand (do not apply its effect) and draws a new card. 
+    When you discard Prince Arnaud, choose one player still in the round (including yourself).
+    That player discards his or her hand (do not apply its effect) and draws a new card.
     If the deck is empty, that player draws the card that was removed at the start of the round
     """
 
@@ -193,8 +196,8 @@ class PrinceCard(Card):
         with_card: "Card" = None,
     ):
         # choose self to discard the card in the hand
-        for c in card_holder.cards:
-            if c.name == "伯爵夫人":
+        for card in card_holder.cards:
+            if card.name == "伯爵夫人":
                 raise REJECT_BY_RULE
 
         for card in chosen_player.cards:
@@ -224,8 +227,8 @@ class KingCard(Card):
         chosen_player: "Player" = None,
         with_card: "Card" = None,
     ):
-        for c in card_holder.cards:
-            if c.name == "伯爵夫人":
+        for card in card_holder.cards:
+            if card.name == "伯爵夫人":
                 raise REJECT_BY_RULE
 
         # 出牌者剩下的牌(型別為list)
@@ -256,12 +259,12 @@ class CountessCard(Card):
     quantity = 1
 
     """
-    Unlike other cards, which take effect when discarded, the text on the Countess applies while she is in your hand. 
+    Unlike other cards, which take effect when discarded, the text on the Countess applies while she is in your hand.
     In fact, she has no effect when you discard her.
 
-    If you ever have the Countess and either the King or Prince in your hand, 
-    you must discard the Countess. You do not have to reveal the other card in your hand. 
-    Of course, you can also discard the Countess even if you do not have a royal family member in your hand. 
+    If you ever have the Countess and either the King or Prince in your hand,
+    you must discard the Countess. You do not have to reveal the other card in your hand.
+    Of course, you can also discard the Countess even if you do not have a royal family member in your hand.
     She likes to play mind games....
     """
 
@@ -329,7 +332,7 @@ class Deck:
 
         random.shuffle(self.cards)
 
-        for num in range(remove_cards_num):
+        for _ in range(remove_cards_num):
             self.remove_by_rule_cards.append(self.cards.pop(0))
 
     def draw_card(self, player: "Player") -> bool:
