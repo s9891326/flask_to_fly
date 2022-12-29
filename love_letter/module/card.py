@@ -32,7 +32,6 @@ class Card(metaclass=abc.ABCMeta):
 
     """
 
-    name: str = ""
     value: int = 0
     quantity: int = 0
 
